@@ -69,7 +69,7 @@ html,body{overflow-x:hidden}.deck-scene{overflow:clip}.deck-caption{bottom:0}.de
     <nav class="bottom-nav" aria-label="主要页面"><button class="nav-item active" data-view="today" aria-current="page"><span aria-hidden="true">✦</span>今日签</button><button class="nav-item" data-view="partners"><span aria-hidden="true">♧</span>伙伴牌册</button><button class="nav-item" data-view="journal"><span aria-hidden="true">☾</span>我的日签</button></nav>
   </div>
   <dialog id="detailDialog" class="detail-dialog"><form method="dialog"><button class="close-button" aria-label="关闭">×</button></form><div id="dialogContent"></div></dialog>
-  <dialog id="helpDialog" class="help-dialog"><form method="dialog"><button class="close-button" aria-label="关闭">×</button></form><span class="help-star" aria-hidden="true">✦</span><h2>每天，留一句话给自己。</h2><p>选一张牌，遇见一位珞小伙伴。翻开后，你会看到一句日签和一件今天可以试试的小事。</p><p>每天按北京时间更新。这台设备会记住今天的签，再打开时，还是同一份陪伴。</p><p class="help-soft">星座是伙伴的故事设定。这里没有命运预测，只有一点生活灵感。</p><button class="primary-button" id="closeHelpButton">知道了，去抽签</button></dialog>
+  <dialog id="helpDialog" class="help-dialog"><form method="dialog"><button class="close-button" aria-label="关闭">×</button></form><span class="help-star" aria-hidden="true">✦</span><h2>每天，留一句话给自己。</h2><p>选一张牌，遇见一位珞小伙伴。翻开后，你会看到一句日签和一件今天可以试试的小事。</p><p>十二位伙伴，六十八条生活提醒，按日轮换使用。</p><p>每天按北京时间更新。这台设备会记住今天的签，再打开时，还是同一份陪伴。</p><p class="help-soft">星座是伙伴的故事设定。这里没有命运预测，只有一点生活灵感。</p><button class="primary-button" id="closeHelpButton">知道了，去抽签</button></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="sr-only" id="announcer" aria-live="polite"></div>
 <script>(function (root) {
@@ -134,102 +134,526 @@ html,body{overflow-x:hidden}.deck-scene{overflow:clip}.deck-caption{bottom:0}.de
   }
   root.LuoCore = Object.freeze({ STORAGE_KEY, beijingDate, dateLabel, validRecord, loadState, draw, persist, recordData });
 })(typeof window !== 'undefined' ? window : globalThis);
-</script><script>/* Existing character identities, with original daily reminders for this demo. */
+</script><script>/* Established character identities; 68 life reminders. Original message indexes are preserved. */
 window.LUO_CARDS = [
   {
-    id: "01", name: "珞小宝", zodiac: "水瓶座", element: "air", elementName: "风象", symbol: "♒", mount: "独角兽", tagline: "点子特别多", accent: "#8B79C2", art: "assets/01.webp", signTitle: "灵感签",
-    messages: [
-      { quote: "有趣的念头先留在纸上，今天不必急着把它证明给谁看。", action: "把刚冒出的一个点子写下来，再给它起个名字。", keyword: "灵感" },
-      { quote: "暂时想不出答案也没关系，好问题正在替你打开新的路。", action: "把今天最想弄明白的问题，清楚写成一句话。", keyword: "好奇" },
-      { quote: "别急着把每个想法都做完，挑一个让你眼睛发亮的就好。", action: "从待办里挑一个最感兴趣的小任务，先做一点。", keyword: "专注" }
+    "id": "01",
+    "name": "珞小宝",
+    "zodiac": "水瓶座",
+    "element": "air",
+    "elementName": "风象",
+    "symbol": "♒",
+    "mount": "独角兽",
+    "tagline": "点子特别多",
+    "accent": "#8B79C2",
+    "art": "assets/01.webp",
+    "signTitle": "灵感签",
+    "messages": [
+      {
+        "quote": "有趣的念头先留在纸上，今天不必急着把它证明给谁看。",
+        "action": "把刚冒出的一个点子写下来，再给它起个名字。",
+        "keyword": "灵感"
+      },
+      {
+        "quote": "暂时想不出答案也没关系，好问题正在替你打开新的路。",
+        "action": "把今天最想弄明白的问题，清楚写成一句话。",
+        "keyword": "好奇"
+      },
+      {
+        "quote": "别急着把每个想法都做完，挑一个让你眼睛发亮的就好。",
+        "action": "从待办里挑一个最感兴趣的小任务，先做一点。",
+        "keyword": "专注"
+      },
+      {
+        "quote": "借用别人的好办法，也不妨碍你继续保留自己的独立想法。",
+        "action": "向身边的人学一个生活小窍门，亲手试着用一用。",
+        "keyword": "借鉴"
+      },
+      {
+        "quote": "旧东西换个用法，也能让平常的一天生出新鲜感。",
+        "action": "给一件闲置的小物找个新用途，看看是否顺手。",
+        "keyword": "巧用"
+      },
+      {
+        "quote": "一个想法没能实现，也能留下下次用得上的线索。",
+        "action": "回想一次没做成的小尝试，写下下回想换的一种做法。",
+        "keyword": "线索"
+      }
     ]
   },
   {
-    id: "02", name: "珞小朵", zodiac: "巨蟹座", element: "water", elementName: "水象", symbol: "♋", mount: "花螺兽", tagline: "温柔也会说不", accent: "#C38B82", art: "assets/02.webp", signTitle: "温柔签",
-    messages: [
-      { quote: "关心别人之前，也记得问问自己今天还有多少力气。", action: "下次答应帮忙前，先给自己留一点考虑的时间。", keyword: "余力" },
-      { quote: "温柔也可以有边界，把真实的感受说清楚并不失礼。", action: "把一件不想勉强的事，用平静简短的话说出来。", keyword: "边界" },
-      { quote: "给生活添一点喜欢的颜色，也是在认真照顾自己的心情。", action: "选一件身边的小东西，放到你看着舒服的位置。", keyword: "照顾" }
+    "id": "02",
+    "name": "珞小朵",
+    "zodiac": "巨蟹座",
+    "element": "water",
+    "elementName": "水象",
+    "symbol": "♋",
+    "mount": "花螺兽",
+    "tagline": "温柔也会说不",
+    "accent": "#C38B82",
+    "art": "assets/02.webp",
+    "signTitle": "温柔签",
+    "messages": [
+      {
+        "quote": "关心别人之前，也记得问问自己今天还有多少力气。",
+        "action": "下次答应帮忙前，先给自己留一点考虑的时间。",
+        "keyword": "余力"
+      },
+      {
+        "quote": "温柔也可以有边界，把真实的感受说清楚并不失礼。",
+        "action": "把一件不想勉强的事，用平静简短的话说出来。",
+        "keyword": "边界"
+      },
+      {
+        "quote": "给生活添一点喜欢的颜色，也是在认真照顾自己的心情。",
+        "action": "选一件身边的小东西，放到你看着舒服的位置。",
+        "keyword": "照顾"
+      },
+      {
+        "quote": "忙碌的日子里，一句惦记也能让熟悉的人感到被放在心上。",
+        "action": "给很久没联系的家人发个日常问候，不急着聊正事。",
+        "keyword": "惦记"
+      },
+      {
+        "quote": "一起吃顿简单的饭，也能让忙各自事情的人好好聊上几句。",
+        "action": "和愿意作伴的人约顿家常饭，吃饭时先收起手机。",
+        "keyword": "围坐"
+      },
+      {
+        "quote": "熟悉的旧物不必很贵，能唤回温暖的记忆就值得珍惜。",
+        "action": "找一张旧照片，和照片里的人聊聊当时的小趣事。",
+        "keyword": "回忆"
+      }
     ]
   },
   {
-    id: "03", name: "珞小星", zodiac: "双子座", element: "air", elementName: "风象", symbol: "♊", mount: "星云小龙", tagline: "好奇又嘴快", accent: "#6B9DBA", art: "assets/03.webp", signTitle: "表达签",
-    messages: [
-      { quote: "你认真听见的小事，也值得用自己的话好好说出来。", action: "向一个具体的人，说清楚你今天想表达的感谢。", keyword: "表达" },
-      { quote: "有些话不用抢着说完，留一点空隙也能听见新的意思。", action: "下一次聊天时，等对方说完后再接上自己的话。", keyword: "倾听" },
-      { quote: "把没看懂的地方问出来，好奇心从来不需要假装懂事。", action: "为今天的一处疑问，找到一个能认真回答的人。", keyword: "追问" }
+    "id": "03",
+    "name": "珞小星",
+    "zodiac": "双子座",
+    "element": "air",
+    "elementName": "风象",
+    "symbol": "♊",
+    "mount": "星云小龙",
+    "tagline": "好奇又嘴快",
+    "accent": "#6B9DBA",
+    "art": "assets/03.webp",
+    "signTitle": "表达签",
+    "messages": [
+      {
+        "quote": "你认真听见的小事，也值得用自己的话好好说出来。",
+        "action": "向一个具体的人，说清楚你今天想表达的感谢。",
+        "keyword": "表达"
+      },
+      {
+        "quote": "有些话不用抢着说完，留一点空隙也能听见新的意思。",
+        "action": "下一次聊天时，等对方说完后再接上自己的话。",
+        "keyword": "倾听"
+      },
+      {
+        "quote": "把没看懂的地方问出来，好奇心从来不需要假装懂事。",
+        "action": "为今天的一处疑问，找到一个能认真回答的人。",
+        "keyword": "追问"
+      },
+      {
+        "quote": "不小心说重的话值得认真道歉，也要给对方消化感受的时间。",
+        "action": "为一句让人不舒服的话道歉，先不急着替自己辩解。",
+        "keyword": "修补"
+      },
+      {
+        "quote": "消息传得再快，也值得先给事实留一个被确认的位置。",
+        "action": "转发一条消息前，查看来源，拿不准就先不转。",
+        "keyword": "求证"
+      },
+      {
+        "quote": "把约定说得具体一点，能省下彼此很多不必要的猜测。",
+        "action": "约人见面时，把时间和地点核对清楚再出发。",
+        "keyword": "明确"
+      }
     ]
   },
   {
-    id: "04", name: "珞小月", zodiac: "双鱼座", element: "water", elementName: "水象", symbol: "♓", mount: "月弧灵", tagline: "买完总有理由", accent: "#C2A654", art: "assets/04.webp", signTitle: "觉察签",
-    messages: [
-      { quote: "小小的喜欢也值得被记住，它会让平常的一天多一点亮色。", action: "记下今天让你心情变好的小事，并说说为什么。", keyword: "喜欢" },
-      { quote: "想拥有的东西可以慢慢挑，让喜欢多停留一会儿再决定。", action: "把心动的东西先记下来，等心情平稳后再看看。", keyword: "从容" },
-      { quote: "心情有起伏很正常，今天的你不必一直保持同一种表情。", action: "给此刻的心情起一个名字，再照顾一个小需要。", keyword: "觉察" }
+    "id": "04",
+    "name": "珞小月",
+    "zodiac": "双鱼座",
+    "element": "water",
+    "elementName": "水象",
+    "symbol": "♓",
+    "mount": "月弧灵",
+    "tagline": "买完总有理由",
+    "accent": "#C2A654",
+    "art": "assets/04.webp",
+    "signTitle": "觉察签",
+    "messages": [
+      {
+        "quote": "小小的喜欢也值得被记住，它会让平常的一天多一点亮色。",
+        "action": "记下今天让你心情变好的小事，并说说为什么。",
+        "keyword": "喜欢"
+      },
+      {
+        "quote": "想拥有的东西可以慢慢挑，让喜欢多停留一会儿再决定。",
+        "action": "把心动的东西先记下来，等心情平稳后再看看。",
+        "keyword": "从容"
+      },
+      {
+        "quote": "心情有起伏很正常，今天的你不必一直保持同一种表情。",
+        "action": "给此刻的心情起一个名字，再照顾一个小需要。",
+        "keyword": "觉察"
+      },
+      {
+        "quote": "别人展示的只是生活一角，不必拿自己的整天和它比较。",
+        "action": "离开一条让你反复比较的动态，看看自己的真实一天。",
+        "keyword": "自在"
+      },
+      {
+        "quote": "喜欢一段旋律时，就让它陪你把平常的家务做得轻快些。",
+        "action": "选一首喜欢的歌，边听边完成一件日常小家务。",
+        "keyword": "轻快"
+      },
+      {
+        "quote": "美好的东西未必要带回家，认真欣赏过也能留下一份满足。",
+        "action": "经过喜欢的橱窗时好好看看，再空着手继续逛逛。",
+        "keyword": "欣赏"
+      }
     ]
   },
   {
-    id: "05", name: "珞小糖", zodiac: "处女座", element: "earth", elementName: "土象", symbol: "♍", mount: "幻蝴蝶", tagline: "准备很到位", accent: "#CE8C45", art: "assets/05.webp", signTitle: "松弛签",
-    messages: [
-      { quote: "认真把事情做好很珍贵，允许一点小小的不同也很珍贵。", action: "选一个不影响结果的小细节，试着不再反复修改。", keyword: "松弛" },
-      { quote: "计划写得漂亮以后，也给真实的行动留一小块位置。", action: "把清单里最容易开始的一件事，动手做上一小步。", keyword: "开始" },
-      { quote: "准备不必等到毫无遗漏，边做边调整也是可靠的办法。", action: "找一个已经准备得差不多的任务，先开始第一步。", keyword: "尝试" }
+    "id": "05",
+    "name": "珞小糖",
+    "zodiac": "处女座",
+    "element": "earth",
+    "elementName": "土象",
+    "symbol": "♍",
+    "mount": "幻蝴蝶",
+    "tagline": "准备很到位",
+    "accent": "#CE8C45",
+    "art": "assets/05.webp",
+    "signTitle": "松弛签",
+    "messages": [
+      {
+        "quote": "认真把事情做好很珍贵，允许一点小小的不同也很珍贵。",
+        "action": "选一个不影响结果的小细节，试着不再反复修改。",
+        "keyword": "松弛"
+      },
+      {
+        "quote": "计划写得漂亮以后，也给真实的行动留一小块位置。",
+        "action": "把清单里最容易开始的一件事，动手做上一小步。",
+        "keyword": "开始"
+      },
+      {
+        "quote": "准备不必等到毫无遗漏，边做边调整也是可靠的办法。",
+        "action": "找一个已经准备得差不多的任务，先开始第一步。",
+        "keyword": "尝试"
+      },
+      {
+        "quote": "发现差错时及时改正，往往比努力掩饰更能让事情回到正轨。",
+        "action": "核对一处可能写错的信息，发现有误就说明并更正。",
+        "keyword": "更正"
+      },
+      {
+        "quote": "把清楚的步骤分享出去，也是在替后来的人减少一点弯路。",
+        "action": "把你熟悉的一件家务写成短步骤，留给需要的人。",
+        "keyword": "分享"
+      },
+      {
+        "quote": "标准不同的人也能相处，先分清习惯和真正需要解决的事。",
+        "action": "遇到生活习惯不同时，商量一个双方都能执行的做法。",
+        "keyword": "商量"
+      }
     ]
   },
   {
-    id: "06", name: "珞小岚", zodiac: "射手座", element: "fire", elementName: "火象", symbol: "♐", mount: "风筝兽", tagline: "随时能出发", accent: "#55A6A7", art: "assets/06.webp", signTitle: "出发签",
-    messages: [
-      { quote: "今天不必走得很远，换一条熟悉的路也能发现新的风景。", action: "在方便安全的路上，找一处以前没有留意的细节。", keyword: "新鲜" },
-      { quote: "想出发的心可以很热烈，也可以照顾好此刻身体的节奏。", action: "按今天的体力安排一次轻松走动，累了就停一停。", keyword: "节奏" },
-      { quote: "目的地可以慢慢抵达，路上让你开心的小事同样算数。", action: "外出时给自己留一点空闲，看看沿途有趣的东西。", keyword: "沿途" }
+    "id": "06",
+    "name": "珞小岚",
+    "zodiac": "射手座",
+    "element": "fire",
+    "elementName": "火象",
+    "symbol": "♐",
+    "mount": "风筝兽",
+    "tagline": "随时能出发",
+    "accent": "#55A6A7",
+    "art": "assets/06.webp",
+    "signTitle": "出发签",
+    "messages": [
+      {
+        "quote": "今天不必走得很远，换一条熟悉的路也能发现新的风景。",
+        "action": "在方便安全的路上，找一处以前没有留意的细节。",
+        "keyword": "新鲜"
+      },
+      {
+        "quote": "想出发的心可以很热烈，也可以照顾好此刻身体的节奏。",
+        "action": "按今天的体力安排一次轻松走动，累了就停一停。",
+        "keyword": "节奏"
+      },
+      {
+        "quote": "目的地可以慢慢抵达，路上让你开心的小事同样算数。",
+        "action": "外出时给自己留一点空闲，看看沿途有趣的东西。",
+        "keyword": "沿途"
+      },
+      {
+        "quote": "临时变了天气，也可以给期待中的一天换个合适的玩法。",
+        "action": "看看今天的天气，给原定外出准备一个室内备选。",
+        "keyword": "变通"
+      },
+      {
+        "quote": "出门前确认随身物品，能少些走到半路才发现遗漏的懊恼。",
+        "action": "离家前摸一摸钥匙和手机，确认随身物品都带齐。",
+        "keyword": "妥当"
+      },
+      {
+        "quote": "有些风景不用独占，和同伴分享发现也会多出一份热闹。",
+        "action": "把路上见到的有趣事情讲给同伴听，交换各自的发现。",
+        "keyword": "同游"
+      }
     ]
   },
   {
-    id: "07", name: "珞小森", zodiac: "金牛座", element: "earth", elementName: "土象", symbol: "♉", mount: "叶壳兽", tagline: "舍不得浪费", accent: "#6F8D68", art: "assets/07.webp", signTitle: "安稳签",
-    messages: [
-      { quote: "把眼前的小日子照顾妥当，平凡的今天也有踏实的分量。", action: "收好一个常用的小角落，让下次取用更轻松一点。", keyword: "安稳" },
-      { quote: "珍惜不是把每样东西都留下，也包括给生活腾一点空间。", action: "挑一件暂时不用的物品，想好适合它的下一站。", keyword: "空间" },
-      { quote: "不着急赶上别人，把自己的步子走稳也是一种进展。", action: "选一件能照顾当下需要的小事，按自己的速度完成。", keyword: "踏实" }
+    "id": "07",
+    "name": "珞小森",
+    "zodiac": "金牛座",
+    "element": "earth",
+    "elementName": "土象",
+    "symbol": "♉",
+    "mount": "叶壳兽",
+    "tagline": "舍不得浪费",
+    "accent": "#6F8D68",
+    "art": "assets/07.webp",
+    "signTitle": "安稳签",
+    "messages": [
+      {
+        "quote": "把眼前的小日子照顾妥当，平凡的今天也有踏实的分量。",
+        "action": "收好一个常用的小角落，让下次取用更轻松一点。",
+        "keyword": "安稳"
+      },
+      {
+        "quote": "珍惜不是把每样东西都留下，也包括给生活腾一点空间。",
+        "action": "挑一件暂时不用的物品，想好适合它的下一站。",
+        "keyword": "空间"
+      },
+      {
+        "quote": "不着急赶上别人，把自己的步子走稳也是一种进展。",
+        "action": "选一件能照顾当下需要的小事，按自己的速度完成。",
+        "keyword": "踏实"
+      },
+      {
+        "quote": "把吃得下的分量准备好，比勉强清空盘子更懂得珍惜。",
+        "action": "准备食物前先问问有几个人吃，再按需要取量。",
+        "keyword": "适量"
+      },
+      {
+        "quote": "一颗补好的纽扣，也能让熟悉的衣服继续陪你过日子。",
+        "action": "给一件掉扣子的衣服补好纽扣，再重新穿它出门。",
+        "keyword": "爱惜"
+      }
     ]
   },
   {
-    id: "08", name: "珞小汐", zodiac: "天蝎座", element: "water", elementName: "水象", symbol: "♏", mount: "潮翼兽", tagline: "安静吐槽王", accent: "#C07873", art: "assets/08.webp", signTitle: "边界签",
-    messages: [
-      { quote: "安静并不代表缺席，你可以按舒服的距离靠近身边的人。", action: "用自己愿意的方式，回应一个在乎你的人就好。", keyword: "靠近" },
-      { quote: "不必把每份感受都解释清楚，先照顾好它们也很重要。", action: "暂时放下需要解释的事，给自己留一段安静时间。", keyword: "安静" },
-      { quote: "一句真诚又简短的话，也能替你守住今天需要的空间。", action: "为一件不想接受的安排，准备一句温和的拒绝。", keyword: "清楚" }
+    "id": "08",
+    "name": "珞小汐",
+    "zodiac": "天蝎座",
+    "element": "water",
+    "elementName": "水象",
+    "symbol": "♏",
+    "mount": "潮翼兽",
+    "tagline": "安静吐槽王",
+    "accent": "#C07873",
+    "art": "assets/08.webp",
+    "signTitle": "边界签",
+    "messages": [
+      {
+        "quote": "安静并不代表缺席，你可以按舒服的距离靠近身边的人。",
+        "action": "用自己愿意的方式，回应一个在乎你的人就好。",
+        "keyword": "靠近"
+      },
+      {
+        "quote": "不必把每份感受都解释清楚，先照顾好它们也很重要。",
+        "action": "暂时放下需要解释的事，给自己留一段安静时间。",
+        "keyword": "安静"
+      },
+      {
+        "quote": "一句真诚又简短的话，也能替你守住今天需要的空间。",
+        "action": "为一件不想接受的安排，准备一句温和的拒绝。",
+        "keyword": "清楚"
+      },
+      {
+        "quote": "别人的急切不必占满你的注意，消息也可以分清轻重再回应。",
+        "action": "把消息提醒分出轻重，只留下确实需要及时知道的。",
+        "keyword": "自主"
+      },
+      {
+        "quote": "朋友私下告诉你的事情，愿意替他保密就是珍惜这份信任。",
+        "action": "遇到朋友私下告诉你的事情，不拿去做旁人的谈资。",
+        "keyword": "守信"
+      }
     ]
   },
   {
-    id: "09", name: "珞小曜", zodiac: "狮子座", element: "fire", elementName: "火象", symbol: "♌", mount: "虹翼兽", tagline: "热心爱面子", accent: "#BC8B43", art: "assets/09.webp", signTitle: "发光签",
-    messages: [
-      { quote: "热心照顾大家的时候，也别忘了给自己留下一点温暖。", action: "替自己提出一个小需求，让关心也有机会回到你身边。", keyword: "照顾" },
-      { quote: "被需要不等于凡事都要答应，可靠也包括承认自己的余力。", action: "看看手里的安排，把超出余力的一件事重新商量。", keyword: "余力" },
-      { quote: "不必每次都把场面撑得漂亮，真实的你也值得被喜欢。", action: "找一个信任的人，说说今天真实的小感受和需要。", keyword: "真实" }
+    "id": "09",
+    "name": "珞小曜",
+    "zodiac": "狮子座",
+    "element": "fire",
+    "elementName": "火象",
+    "symbol": "♌",
+    "mount": "虹翼兽",
+    "tagline": "热心爱面子",
+    "accent": "#BC8B43",
+    "art": "assets/09.webp",
+    "signTitle": "发光签",
+    "messages": [
+      {
+        "quote": "热心照顾大家的时候，也别忘了给自己留下一点温暖。",
+        "action": "替自己提出一个小需求，让关心也有机会回到你身边。",
+        "keyword": "照顾"
+      },
+      {
+        "quote": "被需要不等于凡事都要答应，可靠也包括承认自己的余力。",
+        "action": "看看手里的安排，把超出余力的一件事重新商量。",
+        "keyword": "余力"
+      },
+      {
+        "quote": "不必每次都把场面撑得漂亮，真实的你也值得被喜欢。",
+        "action": "找一个信任的人，说说今天真实的小感受和需要。",
+        "keyword": "真实"
+      },
+      {
+        "quote": "小小的约定认真兑现，比把话说得响亮更让人感到踏实。",
+        "action": "翻一翻答应过别人的小事，今天把其中一件兑现。",
+        "keyword": "守约"
+      },
+      {
+        "quote": "让不太显眼的人也能加入，热闹才会多出不同的颜色。",
+        "action": "聚在一起聊天时，给安静的伙伴留个接话的机会。",
+        "keyword": "邀请"
+      },
+      {
+        "quote": "开心不必等到大事发生，普通的小进展也值得好好庆祝。",
+        "action": "为刚完成的一件小事安排个轻松的庆祝，别急着赶下一件。",
+        "keyword": "庆祝"
+      }
     ]
   },
   {
-    id: "10", name: "珞小焰", zodiac: "白羊座", element: "fire", elementName: "火象", symbol: "♈", mount: "火羽灵", tagline: "先动手再说", accent: "#B37948", art: "assets/10.webp", signTitle: "勇气签",
-    messages: [
-      { quote: "勇敢可以很安静，把迟迟没开始的小事往前推一点就好。", action: "选一件一直拖着的小事，先做最容易的那个动作。", keyword: "动手" },
-      { quote: "行动以前稍微停一下，不会让你心里的那股热情变少。", action: "动手前看清一个关键步骤，再把第一步稳稳做好。", keyword: "稳住" },
-      { quote: "把热心变成合适的帮助，比急着替别人全部做完更温暖。", action: "想帮忙的时候，先问一句对方现在最需要什么。", keyword: "合适" }
+    "id": "10",
+    "name": "珞小焰",
+    "zodiac": "白羊座",
+    "element": "fire",
+    "elementName": "火象",
+    "symbol": "♈",
+    "mount": "火羽灵",
+    "tagline": "先动手再说",
+    "accent": "#B37948",
+    "art": "assets/10.webp",
+    "signTitle": "勇气签",
+    "messages": [
+      {
+        "quote": "勇敢可以很安静，把迟迟没开始的小事往前推一点就好。",
+        "action": "选一件一直拖着的小事，先做最容易的那个动作。",
+        "keyword": "动手"
+      },
+      {
+        "quote": "行动以前稍微停一下，不会让你心里的那股热情变少。",
+        "action": "动手前看清一个关键步骤，再把第一步稳稳做好。",
+        "keyword": "稳住"
+      },
+      {
+        "quote": "把热心变成合适的帮助，比急着替别人全部做完更温暖。",
+        "action": "想帮忙的时候，先问一句对方现在最需要什么。",
+        "keyword": "合适"
+      },
+      {
+        "quote": "第一次做不好很正常，耐心重复练习才能慢慢找到自己的手感。",
+        "action": "学一个没做过的小动作，给自己留出几次练习的机会。",
+        "keyword": "熟悉"
+      },
+      {
+        "quote": "有勇气承认别人说得有道理，也是一种让人安心的坦率。",
+        "action": "听到能说服你的理由时，大方承认并调整原来的做法。",
+        "keyword": "坦率"
+      }
     ]
   },
   {
-    id: "11", name: "珞小砚", zodiac: "摩羯座", element: "earth", elementName: "土象", symbol: "♑", mount: "墨叶藤灵", tagline: "认真过了头", accent: "#8D8C98", art: "assets/11.webp", signTitle: "留白签",
-    messages: [
-      { quote: "不是每一处空白都要立刻填满，休息也可以认真对待。", action: "给今天留一段不安排任务的时间，只做让你舒服的事。", keyword: "留白" },
-      { quote: "答应的事可以认真做，暂时做不到的事也可以说清楚。", action: "把手里的一件事分成小步，先确认今天能做到哪里。", keyword: "分寸" },
-      { quote: "把责任分给愿意同行的人，有时会让事情走得更稳一些。", action: "找一件可以合作的小事，清楚说出你需要的帮助。", keyword: "同行" }
+    "id": "11",
+    "name": "珞小砚",
+    "zodiac": "摩羯座",
+    "element": "earth",
+    "elementName": "土象",
+    "symbol": "♑",
+    "mount": "墨叶藤灵",
+    "tagline": "认真过了头",
+    "accent": "#8D8C98",
+    "art": "assets/11.webp",
+    "signTitle": "留白签",
+    "messages": [
+      {
+        "quote": "不是每一处空白都要立刻填满，休息也可以认真对待。",
+        "action": "给今天留一段不安排任务的时间，只做让你舒服的事。",
+        "keyword": "留白"
+      },
+      {
+        "quote": "答应的事可以认真做，暂时做不到的事也可以说清楚。",
+        "action": "把手里的一件事分成小步，先确认今天能做到哪里。",
+        "keyword": "分寸"
+      },
+      {
+        "quote": "把责任分给愿意同行的人，有时会让事情走得更稳一些。",
+        "action": "找一件可以合作的小事，清楚说出你需要的帮助。",
+        "keyword": "同行"
+      },
+      {
+        "quote": "事情停住时先核对衔接，有时是需要的信息还没有到齐。",
+        "action": "给卡住的事情标出等待项，和相关的人核对一次进度。",
+        "keyword": "衔接"
+      },
+      {
+        "quote": "说明写得让人看得懂，往往比写得面面俱到更能帮上忙。",
+        "action": "把一段过长的说明缩成关键几句，问问接手的人是否明白。",
+        "keyword": "简明"
+      }
     ]
   },
   {
-    id: "12", name: "珞小铃", zodiac: "天秤座", element: "air", elementName: "风象", symbol: "♎", mount: "铃花灵", tagline: "总是选不出来", accent: "#B85F82", art: "assets/12.webp", signTitle: "选择签",
-    messages: [
-      { quote: "没有让所有人都满意的选项时，也可以把自己放进考虑里。", action: "做一个小选择时，写下你自己最在乎的那个理由。", keyword: "自己" },
-      { quote: "小决定不用背上太大的重量，先试一试也会带来新的线索。", action: "为一件犹豫的小事选个可调整的方案，今天先试试。", keyword: "试试" },
-      { quote: "照顾彼此的感受很珍贵，也请听见自己心里轻轻的那一声。", action: "在答应一件事之前，认真问问自己愿不愿意这样做。", keyword: "倾听" }
+    "id": "12",
+    "name": "珞小铃",
+    "zodiac": "天秤座",
+    "element": "air",
+    "elementName": "风象",
+    "symbol": "♎",
+    "mount": "铃花灵",
+    "tagline": "总是选不出来",
+    "accent": "#B85F82",
+    "art": "assets/12.webp",
+    "signTitle": "选择签",
+    "messages": [
+      {
+        "quote": "没有让所有人都满意的选项时，也可以把自己放进考虑里。",
+        "action": "做一个小选择时，写下你自己最在乎的那个理由。",
+        "keyword": "自己"
+      },
+      {
+        "quote": "小决定不用背上太大的重量，先试一试也会带来新的线索。",
+        "action": "为一件犹豫的小事选个可调整的方案，今天先试试。",
+        "keyword": "试试"
+      },
+      {
+        "quote": "照顾彼此的感受很珍贵，也请听见自己心里轻轻的那一声。",
+        "action": "在答应一件事之前，认真问问自己愿不愿意这样做。",
+        "keyword": "倾听"
+      },
+      {
+        "quote": "做过的选择不必天天重审，走上一段才看得清适不适合。",
+        "action": "为一个已经作出的选择留点观察时间，先暂停反复比较。",
+        "keyword": "安定"
+      },
+      {
+        "quote": "两个人喜欢不同也能一起过日子，轮流决定也是一种公平。",
+        "action": "和同伴商量一个无关紧要的小选择，今天试试轮流做主。",
+        "keyword": "轮流"
+      },
+      {
+        "quote": "摆在面前的选项不一定就是全部，也可以提出自己的新办法。",
+        "action": "遇到都不合适的选项时，试着说出一个兼顾需要的新方案。",
+        "keyword": "另选"
+      }
     ]
   }
 ];
