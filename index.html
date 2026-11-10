@@ -19,6 +19,8 @@ html,body{overflow-x:hidden}.deck-scene{overflow:clip}.deck-caption{bottom:0}.de
 @media(max-width:380px){.intro{padding-top:21px}h1{font-size:26px}.intro-copy{font-size:11px}.deck-scene{height:314px}.deck{transform:scale(.81)}.orbit-one{width:265px;height:265px}.orbit-two{width:300px;height:300px}.primary-actions{margin-top:20px}}
 @media(max-width:800px){.intro h1{font-size:26px;letter-spacing:1px}.intro h1 span{white-space:nowrap}}
 @media(max-width:380px){.intro h1{font-size:24px}}
+/* Optional creator destinations stay separate from the free daily-sign flow. */
+.creator-links{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:4px 0 30px;padding:25px 0;border-top:1px solid var(--line)}.creator-copy h2{font-family:"Songti SC","STSong",serif;font-size:22px;font-weight:500;line-height:1.5;margin:0 0 7px}.creator-copy p{margin:0;font-size:12px;color:var(--muted)}.creator-account-link{display:flex;flex-direction:column;justify-content:center;gap:4px;min-height:70px;min-width:248px;padding:13px 20px;border:1px solid #d3b38666;border-radius:11px;background:#e7c6960b;color:var(--gold)}.creator-account-link>span{font-size:14px;display:flex;align-items:center;justify-content:space-between;gap:20px}.creator-account-link small{font-size:10px;color:var(--muted)}.creator-account-link:hover{background:#e7c69616;border-color:#e7c696aa}@media(max-width:800px){.creator-links{display:block;margin:0 0 24px;padding:23px 0}.creator-copy h2{font-size:20px}.creator-copy p{font-size:12px}.creator-account-link{min-width:0;width:100%;margin-top:16px;min-height:68px}}
 </style>
 
 
@@ -65,6 +67,10 @@ html,body{overflow-x:hidden}.deck-scene{overflow:clip}.deck-caption{bottom:0}.de
         <div class="section-heading"><p class="eyebrow">给日子留一点回声</p><h1 id="journalHeading">我的日签册</h1><p>在这台设备上，收好你遇见过的提醒。</p></div><div id="journalList" class="journal-list"></div>
       </section>
     </main>
+    <section class="creator-links" aria-labelledby="creatorLinksHeading">
+      <div class="creator-copy"><h2 id="creatorLinksHeading">小伙伴的故事，还在继续。</h2><p>在抖音看更多珞小伙伴作品。</p></div>
+      <a class="creator-account-link" href="https://v.douyin.com/m9ShRSSPYWc/" target="_blank" rel="noopener noreferrer"><span>去我的抖音主页 <span aria-hidden="true">↗</span></span><small>喜欢这些小伙伴，欢迎关注。</small></a>
+    </section>
     <footer class="page-footer"><span>珞小伙伴 · 每日一签</span><span>给生活一点灵感</span></footer>
     <nav class="bottom-nav" aria-label="主要页面"><button class="nav-item active" data-view="today" aria-current="page"><span aria-hidden="true">✦</span>今日签</button><button class="nav-item" data-view="partners"><span aria-hidden="true">♧</span>伙伴牌册</button><button class="nav-item" data-view="journal"><span aria-hidden="true">☾</span>我的日签</button></nav>
   </div>
